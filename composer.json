@@ -3,7 +3,7 @@
     "description": "Bundle for upload files and generate image preview based on LiipImagineBundle and ITMFilePreviewBundle",
     "type" : "symfony-bundle",
     "require": {
-        "liip/imagine-bundle": "dev-master",
+        "liip/imagine-bundle": "^1.7",
         "itm/file-preview-bundle": "dev-master"
     },
     "repositories": [{
