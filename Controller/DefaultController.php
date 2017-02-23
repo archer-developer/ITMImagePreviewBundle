@@ -35,7 +35,7 @@ class DefaultController extends Controller
 
         unset($configuration['filters']['thumbnail']);
         // Вписываем изображение в область превью
-        $side = ($imgSize[1] > $imgSize[0]) ? 'heighten' : 'widen';
+        $side = ($thumbSize[1] > $thumbSize[0]) ? 'heighten' : 'widen';
         $configuration['filters']['relative_resize'][$side] = max($thumbSize)*$scale;
 
         // Обрезам лишнее с указанным смещением

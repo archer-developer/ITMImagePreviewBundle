@@ -108,7 +108,7 @@ var phImageBuilderWidget = function()
                 container.find('.phimagebuilder_label_apply, .phimagebuilder_label_discard').show();
                 container.find('.phimagebuilder_label_change').hide();
 
-                // Fix thumb container size                                                                    
+                // Fix thumb container size
                 container.find('.phimagebuilder_label_border').css('width', self.curThumb.width() + 'px');
                 container.find('.phimagebuilder_label_border').css('height', self.curThumb.height() + 'px');
 
@@ -120,29 +120,29 @@ var phImageBuilderWidget = function()
                 self.realZoom = 1; // Отношение превью к оригиналу изображения
                 self.aspectK  = 1; // Относительное увеличение соотношения
 
-                // selected area size                
+                // selected area size
                 selectedZone.width = self.curThumb.width();
                 selectedZone.height = self.curThumb.height();
 
-                // Scale selected area     
+                // Scale selected area
                 if( aspectRatio > 1 )
                 {
-                    // horizontal                      
-                    self.realZoom = realImageSize.height / self.curThumb.height();
-                    self.curZoom  = self.original.height() / self.curThumb.height();
-
+                    //horizontal
                     if( aspectRatio > thumbAspectRatio )
                     {
+                        self.realZoom = realImageSize.height / self.curThumb.height();
+                        self.curZoom  = self.original.height() / self.curThumb.height();
+
                         self.workSide = 'horizontal';
                         self.curThumb.css( 'width', 'auto' );
                         self.curThumb.css( 'height', self.curThumb.height() + 'px' );
                     }
                     else // zoom selected area
                     {
+                        self.realZoom = realImageSize.width / self.curThumb.width();
+                        self.curZoom  = self.original.width() / self.curThumb.width();
+
                         self.workSide = 'vertical';
-                        self.aspectK = thumbAspectRatio / aspectRatio;
-                        selectedZone.width = self.curThumb.width() / self.aspectK;
-                        selectedZone.height = self.curThumb.height() / self.aspectK;
                         self.curThumb.css( 'width', self.curThumb.width() + 'px' );
                         self.curThumb.css( 'height', 'auto' );
                     }
