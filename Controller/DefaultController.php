@@ -31,7 +31,6 @@ class DefaultController extends Controller
 
         // Получаем конечные размеры превью и размеры самого изображения
         $thumbSize = $configuration['filters']['thumbnail']['size'];
-        $imgSize = getimagesize($filePath);
 
         unset($configuration['filters']['thumbnail']);
         // Вписываем изображение в область превью
