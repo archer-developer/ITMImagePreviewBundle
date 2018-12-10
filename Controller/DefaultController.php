@@ -2,32 +2,41 @@
 
 namespace ITM\ImagePreviewBundle\Controller;
 
+use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Liip\ImagineBundle\Controller\ImagineController;
+use Liip\ImagineBundle\Imagine\Cache\Resolver\WebPathResolver;
 
 class DefaultController extends Controller
 {
+    private $filterConfiguration;
+
+    public function __construct(
+        FilterConfiguration $filterConfiguration,
+        ImagineController $imagemanagerResponse,
+        WebPathResolver $pathResolver)
+    {
+        $this->filterConfiguration = $filterConfiguration;
+        $this->imagemanagerResponse = $imagemanagerResponse;
+        $this->pathResolver = $pathResolver;
+    }
+
     /**
      * @Template()
      */
     public function indexAction(Request $request)
     {
-        $filterName = $request->get('name');
-        $filePath = $request->get('filepath');
-        $scale = $request->get('scale');
-        $x = $request->get('x');
-        $y = $request->get('y');
+        $filterName = $request->request->get('name');
+        $filePath = $request->request->get('filepath');
+        $scale = $request->request->get('scale');
+        $x = $request->request->get('x');
+        $y = $request->request->get('y');
 
-        $container = $this->container;
-
-        $imagemanagerResponse = $container->get('liip_imagine.controller');
-        $pathResolver = $container->get('liip_imagine.cache.resolver.default');
-        $filterConfiguration = $container->get('liip_imagine.filter.configuration');
-
-        $configuration = $filterConfiguration->get($filterName);
+        $configuration = $this->filterConfiguration->get($filterName);
 
         // Получаем конечные размеры превью и размеры самого изображения
         $thumbSize = $configuration['filters']['thumbnail']['size'];
@@ -42,13 +51,13 @@ class DefaultController extends Controller
         $configuration['filters']['crop']['start'] = [$x*$scale, $y*$scale];
         $configuration['filters']['upscale']['min'] = $thumbSize;
 
-        $filterConfiguration->set($filterName, $configuration);
+        $this->filterConfiguration->set($filterName, $configuration);
 
-        $pathResolver->remove([$filePath], [$filterName]);
+        $this->pathResolver->remove([$filePath], [$filterName]);
 
-        $imagemanagerResponse->filterAction($request, $filePath, $filterName);
+        $this->imagemanagerResponse->filterAction($request, $filePath, $filterName);
 
-        $thumbUrl = $pathResolver->resolve($filePath, $filterName);
+        $thumbUrl = $this->pathResolver->resolve($filePath, $filterName);
 
         return new Response($thumbUrl);
     }

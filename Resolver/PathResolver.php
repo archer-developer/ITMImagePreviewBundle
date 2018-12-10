@@ -37,7 +37,7 @@ class PathResolver
         $path = str_replace("\\", '/', $config['upload_path'] . '/' . $entityClassName);
         if( !$relative )
         {
-            $path = $this->container->getParameter('kernel.root_dir') . '/../web/' . $path;
+            $path = $this->container->getParameter('kernel.root_dir') . '/../' . $config['public_dir'] . '/' . $path;
         }
 
         return $path;
