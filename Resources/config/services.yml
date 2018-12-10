@@ -1,12 +1,24 @@
 services:
-   itm.image.preview.form_image_type:
-       class: ITM\ImagePreviewBundle\Form\Type\ImagePreviewType
-       arguments: [@service_container]
-       tags:
-           - { name: form.type, alias: itm_image_preview }
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
 
-   itm.image.preview.twig_extension:
-       class: ITM\ImagePreviewBundle\Twig\Extension\ImagePreviewExtension
-       arguments: [@itm.file.preview.path.resolver, @service_container]
-       tags:
-           - { name: twig.extension }
+    itm.image.preview.form_image_type:
+        class: ITM\ImagePreviewBundle\Form\Type\ImagePreviewType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: itm_image_preview }
+
+    itm.image.preview.twig_extension:
+        class: ITM\ImagePreviewBundle\Twig\Extension\ImagePreviewExtension
+        arguments: ['@itm.file.preview.path.resolver', '@service_container']
+        tags:
+            - { name: twig.extension }
+
+    ITM\ImagePreviewBundle\Controller\DefaultController:
+        tags: ['controller.service_arguments']
+        arguments:
+            $filterConfiguration: '@liip_imagine.filter.configuration'
+            $imagemanagerResponse: '@liip_imagine.controller'
+            $pathResolver: '@liip_imagine.cache.resolver.default'

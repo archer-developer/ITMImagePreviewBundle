@@ -3,8 +3,8 @@
     "description": "Bundle for upload files and generate image preview based on LiipImagineBundle and ITMFilePreviewBundle",
     "type" : "symfony-bundle",
     "require": {
-        "liip/imagine-bundle": "dev-master",
-        "itm/file-preview-bundle": "dev-develop"
+        "liip/imagine-bundle": "^2.1",
+        "itm/file-preview-bundle": "dev-master"
     },
     "repositories": [{
         "type": "vcs",
@@ -14,11 +14,11 @@
     "authors": [
         {
             "name": "Samusevich Alexander",
-            "email": "aleksandeer.samusevich@itmhouse.com"
+            "email": "archer.developer@gmail.com"
         },
         {
             "name": "Alexei Yanochkin",
-            "email": "alexei.yanochkin@itmhouse.com"
+            "email": "yanker.developer@gmail.com"
         }
     ],
     "minimum-stability": "dev",
