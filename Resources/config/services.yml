@@ -20,5 +20,7 @@ services:
         tags: ['controller.service_arguments']
         arguments:
             $filterConfiguration: '@liip_imagine.filter.configuration'
-            $imagemanagerResponse: '@liip_imagine.controller'
             $pathResolver: '@liip_imagine.cache.resolver.default'
+            $cacheManager: '@liip_imagine.cache.manager'
+            $dataManager: '@liip_imagine.data.manager'
+            $filterManager: '@liip_imagine.filter.manager'

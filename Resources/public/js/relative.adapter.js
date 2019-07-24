@@ -257,15 +257,20 @@ var phImageBuilderWidget = function()
         var action      = self.widget.attr('callback'); // Callback URL
         var fieldName   = self.widget.find('input').attr('name');
 
+        var sizes = $('div[class="phimagebuilder_label_size"]').text();
+        var thumbSizeX = sizes.slice(0, sizes.indexOf('x'));
+
         var formPost =
-        {
-            field: fieldName,
-            filepath: self.original.attr('filepath'),
-            name: name,
-            x: selection.x1 / self.curZoom, // Переводим смещение рамки в координаты превью
-            y: selection.y1 / self.curZoom,
-            scale: self.scale
-        };
+            {
+                field: fieldName,
+                filepath: self.original.attr('filepath'),
+                name: name,
+                x: selection.x1 / self.curZoom, // Переводим смещение рамки в координаты превью
+                y: selection.y1 / self.curZoom,
+                thumbRation: (selection.x2 - selection.x1) / thumbSizeX,
+                curZoom: self.curZoom,
+                realZoom: self.realZoom,
+            };
 
         self.curThumb.parent().addClass('waiting');
 
