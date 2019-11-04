@@ -63,8 +63,8 @@ var phImageBuilderWidget = function()
                 .css({ width: "", height: ""})
                 .css('max-width', '10000px');
 
-            $(this).attr( 'realWidth', $(this).width() );
-            $(this).attr( 'realHeight', $(this).height() );
+            $(this).attr( 'realWidth', $(this)[0].naturalWidth );
+            $(this).attr( 'realHeight', $(this)[0].naturalHeight );
             $(this).css('max-width', '410px');
             $(this).css('width', '410px');
         });
