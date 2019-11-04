@@ -63,8 +63,8 @@ var phImageBuilderWidget = function()
                 .css({ width: "", height: ""})
                 .css('max-width', '10000px');
 
-            $(this).attr( 'realWidth', $(this).width() );
-            $(this).attr( 'realHeight', $(this).height() );
+            $(this).attr( 'realWidth', $(this)[0].naturalWidth );
+            $(this).attr( 'realHeight', $(this)[0].naturalHeight );
             $(this).css('max-width', '410px');
             $(this).css('width', '410px');
         });
@@ -257,7 +257,7 @@ var phImageBuilderWidget = function()
         var action      = self.widget.attr('callback'); // Callback URL
         var fieldName   = self.widget.find('input').attr('name');
 
-        var sizes = $('div[class="phimagebuilder_label_size"]').text();
+        var sizes = self.curThumb.closest('div[class="phimagebuilder_buttons"]').find('div[class="phimagebuilder_label_size"]').text();
         var thumbSizeX = sizes.slice(0, sizes.indexOf('x'));
 
         var formPost =
@@ -354,3 +354,4 @@ var phImageBuilderWidget = function()
         });
     }
 }
+
